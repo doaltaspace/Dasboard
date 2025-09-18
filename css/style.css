@@ -300,6 +300,10 @@ body:hover #cursor-spotlight {
     border-radius: 9999px;
     box-shadow: 0 1px 3px hsla(var(--foreground), 0.1);
     transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    /* Precision & stability for dynamic sizing/movement */
+    box-sizing: border-box;
+    left: 0;
+    will-change: left, width, transform;
     z-index: 5;
 }
 .lang-switcher button.active {

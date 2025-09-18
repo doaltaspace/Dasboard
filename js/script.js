@@ -543,10 +543,30 @@ document.addEventListener('DOMContentLoaded', function() {
     function moveGlider(switcher) {
         const activeTab = switcher.querySelector('.active');
         const glider = switcher.querySelector('.glider');
-        if (activeTab && glider) {
-            glider.style.width = `${activeTab.offsetWidth}px`;
-            glider.style.left = `${activeTab.offsetLeft}px`;
+        if (!activeTab || !glider) return;
+        // If switcher (e.g., inside hidden mobile menu) is not visible, measure using a clone to avoid 0-width calc
+        const isHidden = switcher.offsetParent === null || getComputedStyle(switcher).display === 'none';
+        if (isHidden) {
+            const clone = switcher.cloneNode(true);
+            clone.style.cssText = 'position:absolute;visibility:hidden;display:flex;';
+            document.body.appendChild(clone);
+            const activeClone = clone.querySelector('.active');
+            const rect = activeClone.getBoundingClientRect();
+            const parentRect = clone.getBoundingClientRect();
+            const width = Math.round(rect.width);
+            const left = Math.round(rect.left - parentRect.left);
+            glider.style.width = `${width}px`;
+            glider.style.left = `${left}px`;
+            document.body.removeChild(clone);
+            return;
         }
+        // Visible: use precise bounding rects to avoid subpixel jitter
+        const rect = activeTab.getBoundingClientRect();
+        const parentRect = switcher.getBoundingClientRect();
+        const width = Math.round(rect.width);
+        const left = Math.round(rect.left - parentRect.left);
+        glider.style.width = `${width}px`;
+        glider.style.left = `${left}px`;
     }
 
     langSwitchers.forEach(switcher => {
@@ -566,6 +586,26 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Recalculate glider after fonts finish loading to avoid early misalignment
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => langSwitchers.forEach(moveGlider));
+    }
+    // Also recalc on window resize and orientation changes
+    window.addEventListener('resize', () => langSwitchers.forEach(moveGlider));
+    window.addEventListener('orientationchange', () => langSwitchers.forEach(moveGlider));
+
+    // Ensure mobile menu reveals a correctly positioned glider when opened
+    const mobileMenuEl = document.getElementById('mobile-menu');
+    const mobileMenuButtonEl = document.getElementById('mobile-menu-button');
+    if (mobileMenuEl && mobileMenuButtonEl) {
+        mobileMenuButtonEl.addEventListener('click', () => {
+            // Next frame after it becomes visible
+            requestAnimationFrame(() => langSwitchers.forEach(moveGlider));
+            // And a tiny delay to catch transitions
+            setTimeout(() => langSwitchers.forEach(moveGlider), 50);
+        });
+    }
 
     // Logika untuk animasi Fade-in-up saat scroll
     const faders = document.querySelectorAll('.fade-in-up');
