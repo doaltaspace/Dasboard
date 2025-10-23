@@ -11,6 +11,18 @@
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="id_ID" />
 
+    <!-- Favicons (PNG) that adapt to theme -->
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-light-32.png" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-light-16.png" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-dark-32.png" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-dark-16.png" media="(prefers-color-scheme: dark)">
+    <!-- Fallbacks for browsers that ignore media -->
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-light-32.png">
+    <!-- Dynamic favicons updated by JS to track site theme toggle -->
+    <link id="dynamic-favicon-32" rel="icon" type="image/png" sizes="32x32" href="assets/favicon-light-32.png">
+    <link id="dynamic-favicon-16" rel="icon" type="image/png" sizes="16x16" href="assets/favicon-light-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+
     <!-- Tailwind CSS dari CDN -->
     <script src="https://cdn.tailwindcss.com" defer></script>
 
@@ -28,13 +40,43 @@
     <a href="#hero" class="skip-link">Skip to main content</a>
 
     <!-- Canvas untuk animasi background -->
-    <canvas id="interactive-bg"></canvas>
-    <div id="cursor-spotlight"></div>
+    <canvas id="interactive-bg" aria-hidden="true"></canvas>
+    <div id="cursor-spotlight" aria-hidden="true"></div>
+
+    <!-- Maintenance Overlay (localized) -->
+    <div id="maintenance-overlay" class="fixed inset-0 z-[70] bg-background/95 backdrop-blur flex items-center justify-center p-6 hidden" aria-hidden="true">
+        <div id="maintenance-dialog" class="max-w-xl w-full text-center border border-border rounded-3xl bg-card shadow-2xl p-8" role="dialog" aria-modal="true" aria-labelledby="maintenance-title" aria-describedby="maintenance-desc" tabindex="-1">
+            <div class="mx-auto mb-4 h-12 w-12 rounded-full bg-secondary text-secondary-foreground flex items-center justify-center">
+                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M12 9v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h2 id="maintenance-title" class="text-2xl font-bold mb-2" data-lang-key="maintenanceTitle">Website sedang perbaikan</h2>
+            <p id="maintenance-desc" class="text-muted mb-6" data-lang-key="maintenanceDesc">Kami sedang melakukan pemeliharaan singkat untuk meningkatkan pengalaman Anda. Silakan kembali beberapa saat lagi.</p>
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <button id="maintenance-preview-btn" class="inline-flex items-center justify-center rounded-full h-10 px-5 bg-primary text-primary-foreground btn" data-lang-key="maintenancePreviewCta">Lihat situs (preview)</button>
+                <a href="mailto:doaltaspace@gmail.com" class="inline-flex items-center justify-center rounded-full h-10 px-5 border border-border bg-secondary text-secondary-foreground btn" data-lang-key="maintenanceContact">Hubungi saya</a>
+            </div>
+        </div>
+    </div>
 
     <!-- Header / Navigasi -->
     <header class="fixed top-0 left-0 right-0 z-40 w-full border-b border-border bg-background/80 backdrop-blur-lg" role="banner">
         <nav class="container mx-auto px-6 h-16 flex items-center justify-between relative" role="navigation" aria-label="Main Navigation">
-            <a href="#" class="text-lg font-bold">Aldo Doalta Sanonifan</a>
+            <a href="#" class="text-lg font-bold inline-flex items-center gap-2 group" aria-label="Home">
+                <picture class="brand-logo h-7 w-7 block">
+                    <source srcset="assets/logo-dark.png 1x, assets/logo-dark@2x.png 2x" media="(prefers-color-scheme: dark)">
+                    <source srcset="assets/logo-light.png 1x, assets/logo-light@2x.png 2x" media="(prefers-color-scheme: light)">
+                    <img id="brand-logo-img"
+                         data-logo-light="assets/logo-light.png"
+                         data-logo-light-2x="assets/logo-light@2x.png"
+                         data-logo-dark="assets/logo-dark.png"
+                         data-logo-dark-2x="assets/logo-dark@2x.png"
+                         src="assets/logo-light.png" alt="Aldo Doalta Sanonifan" width="28" height="28" class="h-7 w-7 object-contain"
+                         onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'text-sm font-semibold',innerText:'AD'}));">
+                </picture>
+                <span class="sr-only">Aldo Doalta Sanonifan</span>
+            </a>
             <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-muted nav-center">
                 <a href="#about" class="nav-link" data-lang-key="navAbout">About</a>
                 <a href="#career" class="nav-link" data-lang-key="navExperience">Experience</a>
@@ -49,8 +91,8 @@
                     <button data-lang="id" class="px-3 py-1 rounded-full">ID</button>
                 </div>
                 <button id="theme-toggle" class="relative w-10 h-10 flex items-center justify-center rounded-full border border-border bg-card hover:bg-secondary btn group" aria-label="Toggle theme">
-                    <svg id="theme-toggle-dark-icon" class="h-5 w-5 text-foreground absolute transition-all duration-300 transform group-hover:rotate-12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-                    <svg id="theme-toggle-light-icon" class="h-5 w-5 text-foreground absolute transition-all duration-300 transform group-hover:rotate-12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <svg id="theme-toggle-dark-icon" class="h-5 w-5 text-foreground absolute transition-all duration-300 transform group-hover:rotate-12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="h-5 w-5 text-foreground absolute transition-all duration-300 transform group-hover:rotate-12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                 </button>
                 <!-- Availability pill (desktop) -->
                 <span class="hidden md:inline-flex items-center gap-2 rounded-full border border-border bg-secondary/70 px-3 py-1 text-sm font-medium" aria-label="Availability status">
@@ -60,7 +102,6 @@
                     </span>
                     <span data-lang-key="availabilityNow">Available</span>
                 </span>
-                <a href="https://www.linkedin.com/in/aldodoaltasanonifan/" target="_blank" rel="noopener noreferrer" class="hidden md:inline-flex items-center justify-center rounded-[12px] text-sm font-medium h-10 px-4 py-2 btn bg-primary text-primary-foreground hover:bg-primary/90" data-lang-key="navContact">LinkedIn</a>
             </div>
             <!-- Availability dot (mobile) -->
             <span class="md:hidden inline-flex items-center" aria-label="Available">
@@ -70,7 +111,7 @@
                 </span>
             </span>
             <button id="mobile-menu-button" class="md:hidden p-2" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="mobile-menu">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </nav>
         <div id="mobile-menu" class="hidden md:hidden px-6 pt-2 pb-4 space-y-2 bg-background border-b border-border">
@@ -99,48 +140,76 @@
     </header>
 
     <!-- Konten Utama -->
-    <main class="container mx-auto px-6 py-24" role="main">
-        <section id="hero" class="text-center max-w-5xl mx-auto pt-16 md:pt-24 pb-12 md:pb-16" aria-labelledby="hero-heading">
-            <div class="hero-soft-bg rounded-xl md:rounded-2xl px-5 md:px-8 py-5 md:py-7">
-                <h1 id="hero-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold pb-2 md:pb-3 hero-title" data-lang-key="heroTitle">Operations Supervisor & Aspiring Product Manager</h1>
-                <p class="mt-3 md:mt-4 text-lg text-muted max-w-[22ch] sm:max-w-2xl leading-normal sm:leading-relaxed mx-auto" data-lang-key="heroSubtitle">Transforming operational excellence into innovative product solutions. With a solid background in logistics and supply chain, I'm passionate about building products that solve real-world problems.</p>
-                <div class="mt-6 md:mt-8 flex flex-wrap justify-center gap-3 sm:gap-4">
-                    <a href="mailto:doaltaspace@gmail.com" class="w-full sm:w-auto inline-flex items-center justify-center rounded-[12px] text-sm font-semibold h-11 px-6 py-2 bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 btn focus-visible:outline-none" data-lang-key="heroContactCta" aria-label="Primary contact action">Contact Me</a>
-                    <button id="download-cv-btn" class="w-full sm:w-auto inline-flex items-center justify-center rounded-[12px] text-sm font-medium h-11 px-5 py-2 border border-border bg-background/60 backdrop-blur hover:bg-secondary/70 text-foreground btn focus-visible:outline-none" data-lang-key="heroDownload" aria-label="Download CV as PDF">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M12 12v-8m0 8l-3-3m3 3 3-3"/></svg>
-                        <span>Download CV</span>
-                    </button>
+    <main class="container mx-auto px-6 py-20" role="main">
+    <section id="hero" class="py-20 fade-in-up" aria-labelledby="hero-heading">
+            <div class="container mx-auto px-6">
+                <div class="min-h-[62vh] lg:min-h-[68vh] grid lg:grid-cols-2 items-start lg:items-center gap-10 lg:gap-14 hero-inner">
+                    <div class="max-w-3xl hero-left text-left">
+                        <p class="hero-hello" data-lang-key="heroHello">Hello, I'm Aldo Doalta Sanonifan</p>
+                        <h1 id="hero-heading" class="hero-title" data-lang-key="heroTitle">Operations Supervisor & Aspiring Product Manager</h1>
+                        <p class="hero-sub" data-lang-key="heroSubtitle">Transforming operational excellence into innovative product solutions. With a solid background in logistics and supply chain, I'm passionate about building products that solve real-world problems.</p>
+                        <div class="mt-7 flex items-center gap-3 icon-row">
+                            <!-- Email icon -->
+                            <a href="mailto:doaltaspace@gmail.com" data-icon="email" class="icon-btn w-11 h-11 rounded-full border border-border bg-background/60 backdrop-blur text-foreground hover:bg-secondary/70 btn focus-visible:outline-none flex items-center justify-center" aria-label="Email" data-tooltip="Email">
+                                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path d="M17 20.5H7C4 20.5 2 19 2 15.5V8.5C2 5 4 3.5 7 3.5H17C20 3.5 22 5 22 8.5V15.5C22 19 20 20.5 17 20.5Z" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M18.7698 7.7688L13.2228 12.0551C12.5025 12.6116 11.4973 12.6116 10.777 12.0551L5.22998 7.7688" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </a>
+                            <!-- WhatsApp icon -->
+                            <a href="https://wa.me/628990411855" target="_blank" rel="noopener noreferrer" data-icon="whatsapp" class="icon-btn w-11 h-11 rounded-full border border-border bg-background/60 backdrop-blur text-foreground hover:bg-secondary/70 btn focus-visible:outline-none flex items-center justify-center" aria-label="WhatsApp" data-tooltip="WhatsApp">
+                                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path d="M6.014 8.00613C6.12827 7.1024 7.30277 5.87414 8.23488 6.01043L8.23339 6.00894C9.14051 6.18132 9.85859 7.74261 10.2635 8.44465C10.5504 8.95402 10.3641 9.4701 10.0965 9.68787C9.7355 9.97883 9.17099 10.3803 9.28943 10.7834C9.5 11.5 12 14 13.2296 14.7107C13.695 14.9797 14.0325 14.2702 14.3207 13.9067C14.5301 13.6271 15.0466 13.46 15.5548 13.736C16.3138 14.178 17.0288 14.6917 17.69 15.27C18.0202 15.546 18.0977 15.9539 17.8689 16.385C17.4659 17.1443 16.3003 18.1456 15.4542 17.9421C13.9764 17.5868 8 15.27 6.08033 8.55801C5.97237 8.24048 5.99955 8.12044 6.014 8.00613Z" fill="currentColor"/>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 23C10.7764 23 10.0994 22.8687 9 22.5L6.89443 23.5528C5.56462 24.2177 4 23.2507 4 21.7639V19.5C1.84655 17.492 1 15.1767 1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23ZM6 18.6303L5.36395 18.0372C3.69087 16.4772 3 14.7331 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C11.0143 21 10.552 20.911 9.63595 20.6038L8.84847 20.3397L6 21.7639V18.6303Z" fill="currentColor"/>
+                                </svg>
+                            </a>
+                            <!-- LinkedIn icon -->
+                            <a href="https://www.linkedin.com/in/aldodoaltasanonifan/" target="_blank" rel="noopener noreferrer" data-icon="linkedin" class="icon-btn w-11 h-11 rounded-full border border-border bg-background/60 backdrop-blur text-foreground hover:bg-secondary/70 btn focus-visible:outline-none flex items-center justify-center" aria-label="LinkedIn" data-tooltip="LinkedIn">
+                                <svg class="w-5 h-5" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path d="M77.796 214.238V98.986H39.488v115.252H77.8zM58.65 83.253c13.356 0 21.671-8.85 21.671-19.91-.25-11.312-8.315-19.915-21.417-19.915-13.111 0-21.674 8.603-21.674 19.914 0 11.06 8.312 19.91 21.169 19.91h.248zM99 214.238h38.305v-64.355c0-3.44.25-6.889 1.262-9.346 2.768-6.885 9.071-14.012 19.656-14.012 13.858 0 19.405 10.568 19.405 26.063v61.65h38.304v-66.082c0-35.399-18.896-51.872-44.099-51.872-20.663 0-29.738 11.549-34.78 19.415h.255V98.99H99.002c.5 10.812-.003 115.252-.003 115.252z" fill="currentColor"/>
+                                </svg>
+                            </a>
+                            <!-- CV/Resume icon (uses existing JS by keeping id) -->
+                                     <a href="javascript:void(0)" id="download-cv-btn" data-icon="cv" 
+                                         data-cv-img-src-en="assets/cv-en-1280.jpg"
+                                         data-cv-img-srcset-en="assets/cv-en-800.jpg 800w, assets/cv-en-1280.jpg 1280w, assets/cv-en-1920.jpg 1920w"
+                                         data-cv-pdf-url-en="assets/cv-en.pdf"
+                                         data-cv-img-src-id="assets/cv-id-1280.jpg"
+                                         data-cv-img-srcset-id="assets/cv-id-800.jpg 800w, assets/cv-id-1280.jpg 1280w, assets/cv-id-1920.jpg 1920w"
+                                         data-cv-pdf-url-id="assets/cv-id.pdf"
+                                         data-cv-img-sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 960px"
+                               class="icon-btn w-11 h-11 rounded-full border border-border bg-background/60 backdrop-blur text-foreground hover:bg-secondary/70 btn focus-visible:outline-none flex items-center justify-center" aria-label="Curriculum vitae" data-tooltip="Curriculum vitae">
+                                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                                    <path d="M15 2v5h5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                                    <path d="M8 14h8M8 11h8M8 17h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                </svg>
+                            </a>
+                        </div>
+                        <!-- Location (left aligned) -->
+                        <div class="mt-8" aria-label="Location">
+                            <div class="inline-flex items-center gap-2 text-sm text-muted dark:text-foreground/80" role="text">
+                                <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0 0c-4.97 0-9 2.239-9 5v1a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-1c0-2.761-4.03-5-9-5Z"/></svg>
+                                <span data-lang-key="locationText">Based in Indonesia · Open to Remote / Hybrid Collaboration</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Right: Photo -->
+                    <div class="hero-right w-full flex justify-center lg:justify-end mt-10 lg:mt-0">
+                        <figure class="relative">
+                            <img 
+                                src="assets/aldo-portrait.jpg" 
+                                alt="Professional portrait" 
+                                width="520" height="680" 
+                                class="hero-photo object-cover object-top rounded-[32px] ring-1 ring-border shadow-xl max-h-[70vh] w-full" 
+                                loading="eager" decoding="async"
+                                onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'flex items-center justify-center rounded-[32px] ring-1 ring-border bg-secondary text-secondary-foreground w-[320px] h-[420px] md:w-[420px] md:h-[560px]',innerText:'Photo'}));"
+                            />
+                        </figure>
+                    </div>
                 </div>
             </div>
-            <!-- Mobile swipe hint for metrics -->
-            <div class="mt-1 text-xs text-muted sm:hidden" aria-hidden="true">
-                <span data-lang-key="metricsHint">Swipe to see more</span>
-            </div>
-            <div class="mt-4 md:mt-6 metrics-scroll gap-4 sm:gap-6" aria-label="Impact Metrics">
-                <div class="p-3 md:p-4 rounded-lg border border-border bg-card min-w-[80%] md:min-w-0" role="figure">
-                    <p class="text-3xl font-bold" data-lang-key="metric1Value">99.8%</p>
-                    <p class="text-xs uppercase tracking-wide text-muted mt-1" data-lang-key="metric1Label">Data Accuracy</p>
-                </div>
-                <div class="p-3 md:p-4 rounded-lg border border-border bg-card min-w-[80%] md:min-w-0" role="figure">
-                    <p class="text-3xl font-bold" data-lang-key="metric2Value">-15%</p>
-                    <p class="text-xs uppercase tracking-wide text-muted mt-1" data-lang-key="metric2Label">Bottlenecks</p>
-                </div>
-                <div class="p-3 md:p-4 rounded-lg border border-border bg-card min-w-[80%] md:min-w-0" role="figure">
-                    <p class="text-3xl font-bold" data-lang-key="metric3Value">+10%</p>
-                    <p class="text-xs uppercase tracking-wide text-muted mt-1" data-lang-key="metric3Label">On-Time Delivery</p>
-                </div>
-                <div class="p-3 md:p-4 rounded-lg border border-border bg-card min-w-[80%] md:min-w-0" role="figure">
-                    <p class="text-3xl font-bold" data-lang-key="metric4Value">-20%</p>
-                    <p class="text-xs uppercase tracking-wide text-muted mt-1" data-lang-key="metric4Label">Stockouts</p>
-                </div>
-            </div>
-            <!-- Location centered at bottom of hero -->
-            <div class="mt-10 md:mt-12 flex justify-center" aria-label="Location">
-                <div class="inline-flex items-center gap-2 text-sm text-muted dark:text-foreground/80" role="text">
-                    <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0 0c-4.97 0-9 2.239-9 5v1a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-1c0-2.761-4.03-5-9-5Z"/></svg>
-                    <span data-lang-key="locationText">Based in Indonesia · Open to Remote / Hybrid Collaboration</span>
-                </div>
-            </div>
+            
         </section>
 
         
@@ -156,7 +225,7 @@
                         My passion for continuous learning has led me to explore the world of product management, where I am currently honing my skills in SDLC, Agile methodologies, and user-centric design. I am excited to leverage my operational background to build products that are not only efficient but also deliver exceptional value to users.
                     </p>
                     <p class="mt-4 text-muted leading-relaxed" data-lang-key="aboutParagraph3">
-                        I enjoy building scalable internal tooling and leveraging automation and AI (from spreadsheet scripting to lightweight prompt-assisted analysis) to unlock productivity for teams. I'm driven by clarity, measurable outcomes, and collaborative iteration—values I aim to carry into a full product management role.
+                        I enjoy building scalable internal tooling and leveraging automation and AI (from spreadsheet scripting to lightweight prompt-assisted analysis) to unlock productivity for teams. I'm driven by clarity, measurable outcomes, and collaborative iteration—values I aim to carry into a full product manag ement role.
                     </p>
                 </div>
                 <div class="md:col-span-2 card-3d-container group mt-10 md:mt-0 md:self-center md:translate-y-2 lg:translate-y-3">
@@ -182,8 +251,13 @@
 
         <section id="workflow" class="py-24 fade-in-up" aria-labelledby="workflow-heading">
             <div class="workflow-header">
-                <h2 id="workflow-heading" class="workflow-heading" data-lang-key="workflowTitle">My Smart Workflow</h2>
-                <p class="workflow-subtitle" data-lang-key="workflowParagraph">For me, the best technology saves time on repetitive tasks so I can focus on creative, strategic problem solving. I actively integrate modern tools and AI into my daily workflow—from research to execution—to achieve results that are faster and smarter.</p>
+                <h2 id="workflow-heading" class="workflow-heading">
+                    <span class="wf-headline" data-lang-key="workflowTitle">Workflow</span>
+                    <span class="wf-subheadline block text-muted" data-lang-key="workflowSubtitle">Efficiency by Design</span>
+                </h2>
+                <div class="workflow-subtitle" data-lang-key="workflowParagraph">
+                    <!-- Filled dynamically as two <p> paragraphs by script.js -->
+                </div>
             </div>
             <div id="workflow-frame" class="frame mx-auto" role="list" aria-label="Workflow steps"></div>
             <!-- Mobile simplified stacked workflow (rendered via JS) -->
@@ -251,11 +325,11 @@
     
     <!-- Tombol Aksi Melayang (FAB) -->
     <div class="fixed fixed-bottom-safe right-4 z-50 flex flex-col items-center gap-3">
-        <button id="back-to-top-btn" class="w-12 h-12 rounded-full bg-secondary text-secondary-foreground shadow-lg flex items-center justify-center btn">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 11l7-7 7 7M5 19l7-7 7 7"></path></svg>
+        <button id="back-to-top-btn" class="w-12 h-12 rounded-full bg-secondary text-secondary-foreground shadow-lg flex items-center justify-center btn" aria-label="Back to top">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 11l7-7 7 7M5 19l7-7 7 7"></path></svg>
         </button>
-        <button id="ai-fab-btn" class="w-12 h-12 rounded-full bg-secondary text-secondary-foreground shadow-lg flex items-center justify-center btn" aria-label="AI Assistant">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+        <button id="ai-fab-btn" class="w-12 h-12 rounded-full bg-secondary text-secondary-foreground shadow-lg flex items-center justify-center btn" aria-label="AI Assistant" aria-haspopup="dialog" aria-controls="ai-modal-content" aria-expanded="false">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
         </button>
         <div class="relative fab-container flex flex-col items-center">
             <div class="fab-options">

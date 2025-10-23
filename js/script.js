@@ -2,6 +2,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Objek untuk menyimpan semua teks terjemahan
     const translations = {
     en: {
+        maintenanceTitle: 'Site under maintenance',
+            maintenanceDesc: 'We\'re doing a short maintenance to improve your experience. Please check back soon.',
+            maintenancePreviewCta: 'Preview site',
+            maintenanceContact: 'Contact me',
+        heroHello: "Hello, I'm Aldo Doalta Sanonifan",
             navAbout: 'About', navExperience: 'Experience', navProjects: 'Projects', navSkills: 'Skills', navEducation: 'Education', navContact: 'LinkedIn',
             navAboutMobile: 'About', navExperienceMobile: 'Experience', navProjectsMobile: 'Projects', navSkillsMobile: 'Skills', navEducationMobile: 'Education', navContactMobile: 'LinkedIn',
             heroTitle: 'Operations Supervisor & Aspiring Product Manager',
@@ -12,16 +17,17 @@ document.addEventListener('DOMContentLoaded', function() {
             availabilityNow: 'Available',
             locationCta: 'Let’s Talk',
             aboutTitle: 'About Me',
-            aboutParagraph1: "I am a dynamic professional with over three years of experience in logistics, administration, and operational supervision. My journey has equipped me with a robust skill set in process optimization, data management, and team leadership. I thrive on identifying inefficiencies and implementing data-driven solutions to enhance accuracy and productivity.",
-            aboutParagraph2: "My passion for continuous learning has led me to explore the world of product management, where I am currently honing my skills in SDLC, Agile methodologies, and user-centric design. I am excited to leverage my operational background to build products that are not only efficient but also deliver exceptional value to users.",
-            aboutParagraph3: "I enjoy building scalable internal tooling and leveraging automation and AI (from spreadsheet scripting to lightweight prompt assisted analysis) to unlock productivity for teams. I'm driven by clarity, measurable outcomes, and collaborative iteration; values I aim to carry into a full product management role.",
+            aboutParagraph1: "For over three years, I've taken a deep dive into the heart of operations (logistics, administration, and supervision), driven by a single obsession: making things work better. I translate inefficiencies into opportunities, designing and implementing data-driven solutions to boost team accuracy and productivity.",
+            aboutParagraph2: "This drive to optimize systems extends beyond existing processes. I proactively build internal tooling (from interactive reports and dashboards to automation) to unlock my team's full productivity potential. This experience naturally led me to pivot into product management, where I am now honing my skills across the end-to-end product lifecycle: from research and idea validation to launch strategy and iteration.",
+            aboutParagraph3: "I am committed to leveraging my strong operational background to build digital products that are fundamentally sound: reliable, efficient, and deliver tangible value. My principles are simple: clarity of purpose, measurable outcomes, and collaborative iteration.",
             competenciesList: `<li class="flex items-center stagger-item"><span class="animated-dot mr-3 flex-shrink-0"></span>Operational Management</li><li class="flex items-center stagger-item"><span class="animated-dot mr-3 flex-shrink-0"></span>Supply Chain & Logistics</li><li class="flex items-center stagger-item"><span class="animated-dot mr-3 flex-shrink-0"></span>Data Analysis & Accuracy</li><li class="flex items-center stagger-item"><span class="animated-dot mr-3 flex-shrink-0"></span>Product Lifecycle (SDLC)</li><li class="flex items-center stagger-item"><span class="animated-dot mr-3 flex-shrink-0"></span>Stakeholder Management</li>`,
             careerTitle: 'Career Experience',
             projectsTitle: 'Featured Projects',
             skillsTitle: 'Technical & Product Skills',
             educationTitle: 'Education & Professional Development',
-            workflowTitle: 'My Smart Workflow',
-            workflowParagraph: "For me, the best technology saves time on repetitive tasks so I can focus on creative, strategic problem solving. I actively integrate modern tools and AI into my daily workflow from research to execution to achieve results that are faster and smarter.",
+            workflowTitle: 'Workflow',
+            workflowSubtitle: 'Efficiency by Design',
+            workflowParagraph: "Great workflows don't just happen. They are intentionally designed. I don't merely use tools. I build an integrated ecosystem of them to automate repetitive tasks, centralize information, and accelerate the journey from idea to execution.<br><br>By leveraging the power of modern collaborative platforms and AI-powered automation, I ensure less time is wasted on administrative tasks and more is dedicated to strategic thinking. This is my method for translating complexity into clear, productive workflows.",
             footerText: '&copy; 2025 Aldo Doalta Sanonifan. All rights reserved.',
             projectCategory: 'Category',
             aiTitle: 'AI Assistant',
@@ -45,6 +51,11 @@ document.addEventListener('DOMContentLoaded', function() {
             
         },
     id: {
+        maintenanceTitle: 'Website sedang perbaikan',
+            maintenanceDesc: 'Kami sedang melakukan pemeliharaan singkat untuk meningkatkan pengalaman Anda. Silakan kembali beberapa saat lagi.',
+            maintenancePreviewCta: 'Lihat situs (preview)',
+            maintenanceContact: 'Hubungi saya',
+        heroHello: 'Halo, saya Aldo Doalta Sanonifan',
             navAboutMobile: 'Tentang', navExperienceMobile: 'Pengalaman', navProjectsMobile: 'Proyek', navSkillsMobile: 'Keahlian', navEducationMobile: 'Pendidikan', navContactMobile: 'LinkedIn',
             heroTitle: 'Supervisor Operasional & Antusias Manajemen Produk',
             heroSubtitle: "Mengubah keunggulan operasional menjadi solusi produk yang inovatif. Dengan latar belakang yang kuat di bidang logistik dan supply chain, saya bersemangat membangun produk yang memecahkan masalah nyata.",
@@ -53,16 +64,17 @@ document.addEventListener('DOMContentLoaded', function() {
             availabilityNow: 'Tersedia',
             locationCta: 'Hubungi',
             aboutTitle: 'Tentang Saya',
-            aboutParagraph1: "Saya adalah seorang profesional dinamis dengan pengalaman lebih dari tiga tahun di bidang logistik, administrasi, dan supervisi operasional. Perjalanan ini telah membekali saya dengan keahlian yang kuat dalam optimisasi proses, manajemen data, dan kepemimpinan tim. Saya berkembang dengan mengidentifikasi inefisiensi dan menerapkan solusi berbasis data untuk meningkatkan akurasi dan produktivitas.",
-            aboutParagraph2: "Semangat saya untuk terus belajar telah membawa saya untuk menjelajahi dunia manajemen produk, di mana saat ini saya sedang mengasah keterampilan dalam SDLC, metodologi Agile, dan desain yang berpusat pada pengguna. Saya antusias untuk memanfaatkan latar belakang operasional saya untuk membangun produk yang tidak hanya efisien tetapi juga memberikan nilai luar biasa bagi pengguna.",
-            aboutParagraph3: "Saya menikmati membangun tooling internal yang skalabel dan memanfaatkan otomatisasi serta AI (dari scripting spreadsheet hingga analisis berbantuan prompt ringan) untuk membuka produktivitas tim. Saya terdorong oleh kejernihan, hasil yang terukur, dan iterasi kolaboratif; nilai yang ingin saya bawa penuh dalam peran manajemen produk.",
+            aboutParagraph1: "Selama lebih dari tiga tahun, saya telah menyelami jantung operasional (logistik, administrasi, dan supervisi), dengan satu obsesi: membuat segalanya bekerja lebih baik. Saya menerjemahkan inefisiensi menjadi peluang, merancang solusi berbasis data untuk meningkatkan akurasi dan produktivitas tim.",
+            aboutParagraph2: "Keinginan untuk mengoptimalkan sistem ini tidak berhenti pada proses yang ada. Saya proaktif dalam membangun tooling internal (mulai dari laporan dan dasbor interaktif hingga automasi) untuk membuka potensi produktivitas tim. Pengalaman inilah yang secara alami mengarahkan saya untuk mendalami manajemen produk, di mana saya kini mengasah keahlian yang mencakup end-to-end product lifecycle: mulai dari riset dan validasi ide, hingga strategi peluncuran dan iterasi.",
+            aboutParagraph3: "Saya berkomitmen untuk mengintegrasikan latar belakang operasional saya yang kuat untuk membangun produk digital yang fundamental, andal, efisien, dan memberikan nilai nyata. Prinsip saya sederhana: kejernihan tujuan, hasil yang terukur, dan iterasi yang kolaboratif.",
             competenciesList: `<li class="flex items-center stagger-item"><span class="animated-dot mr-3 flex-shrink-0"></span>Manajemen Operasional</li><li class="flex items-center stagger-item"><span class="animated-dot mr-3 flex-shrink-0"></span>Supply Chain & Logistics</li><li class="flex items-center stagger-item"><span class="animated-dot mr-3 flex-shrink-0"></span>Analisis & Akurasi Data</li><li class="flex items-center stagger-item"><span class="animated-dot mr-3 flex-shrink-0"></span>Product Lifecycle (SDLC)</li><li class="flex items-center stagger-item"><span class="animated-dot mr-3 flex-shrink-0"></span>Manajemen Pemangku Kepentingan</li>`,
             careerTitle: 'Pengalaman Karier',
             projectsTitle: 'Proyek Unggulan',
             skillsTitle: 'Keahlian Teknis & Produk',
             educationTitle: 'Pendidikan & Pengembangan Profesional',
-            workflowTitle: 'Workflow Cerdas Saya',
-            workflowParagraph: "Bagi saya, teknologi terbaik adalah yang mampu menghemat waktu untuk hal-hal repetitif, sehingga saya bisa lebih fokus pada pemecahan masalah yang kreatif dan strategis. Saya secara aktif mengintegrasikan berbagai tools modern dan AI ke dalam alur kerja harian saya, mulai dari riset hingga eksekusi, untuk mencapai hasil yang lebih cepat dan lebih cerdas.",
+            workflowTitle: 'Sistem Kerja',
+            workflowSubtitle: 'Efisiensi by Design',
+            workflowParagraph: "Alur kerja yang hebat tidak terjadi begitu saja. Ia dirancang secara sengaja. Saya tidak hanya menggunakan tools; saya membangun sebuah ekosistem kerja yang terintegrasi untuk mengotomatisasi tugas repetitif, mensentralisasi informasi, dan mengakselerasi proses dari ide hingga eksekusi.<br><br>Dengan memanfaatkan kekuatan platform kolaboratif modern dan otomatisasi berbasis AI, saya memastikan lebih sedikit waktu yang terbuang untuk administrasi dan lebih banyak waktu untuk berpikir strategis. Ini adalah cara saya menerjemahkan kompleksitas menjadi alur yang jelas dan produktif.",
             footerText: '&copy; 2025 Aldo Doalta Sanonifan. Hak cipta dilindungi.',
             projectCategory: 'Kategori',
             aiTitle: 'Asisten AI',
@@ -268,6 +280,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const skillsContainer = document.querySelector('#skills-grid');
     const educationContainer = document.querySelector('#education-grid');
     const workflowFrame = document.getElementById('workflow-frame');
+    // Maintenance elements
+    const maintenanceOverlay = document.getElementById('maintenance-overlay');
+    const maintenanceDialog = document.getElementById('maintenance-dialog');
+    const maintenancePreviewBtn = document.getElementById('maintenance-preview-btn');
     
     // Fungsi untuk me-render konten berdasarkan bahasa yang dipilih
     function renderContent(lang) {
@@ -282,11 +298,36 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('[data-lang-key]').forEach(el => {
             const key = el.dataset.langKey;
             if (currentTranslations[key]) {
-                el.innerHTML = currentTranslations[key];
+                // Khusus workflowParagraph: render dua paragraf terpisah
+                if (key === 'workflowParagraph') {
+                    const container = el;
+                    const text = currentTranslations[key];
+                    const parts = String(text).split(/<br\s*\/?>\s*<br\s*\/?>/i);
+                    // Reset konten dan sisipkan <p> untuk tiap bagian
+                    container.innerHTML = '';
+                    parts.forEach((t) => {
+                        const p = document.createElement('p');
+                        p.innerHTML = t.trim();
+                        container.appendChild(p);
+                    });
+                } else {
+                    el.innerHTML = currentTranslations[key];
+                }
             }
         });
         
         document.getElementById('ai-input').placeholder = currentTranslations.aiPlaceholder;
+        // Update maintenance overlay texts dynamically
+        const mt = {
+            title: document.querySelector('[data-lang-key="maintenanceTitle"]'),
+            desc: document.querySelector('[data-lang-key="maintenanceDesc"]'),
+            preview: document.querySelector('[data-lang-key="maintenancePreviewCta"]'),
+            contact: document.querySelector('[data-lang-key="maintenanceContact"]'),
+        };
+        if (mt.title) mt.title.textContent = t.maintenanceTitle;
+        if (mt.desc) mt.desc.textContent = t.maintenanceDesc;
+        if (mt.preview) mt.preview.textContent = t.maintenancePreviewCta;
+        if (mt.contact) mt.contact.textContent = t.maintenanceContact;
 
         // Render bagian Pengalaman Karier (timeline)
     // Insert timeline graphic (inline SVG) then items
@@ -325,7 +366,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </p>
                     ${job.industry ? `<p class="industry-mobile text-muted md:hidden">${job.industry}</p>` : ''}
                     <div class="arrow-link" aria-hidden="true">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.4" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                     </div>
                 </div>
             </div>
@@ -354,7 +395,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="text-right mt-4 flex justify-end items-center">
                             <span class="text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 mr-2">${t.viewDetails}</span>
                             <div class="w-9 h-9 rounded-full bg-secondary flex items-center justify-center transition-all duration-300 group-hover:bg-primary group-hover:scale-110 group-hover:shadow-lg">
-                                <svg class="w-5 h-5 text-secondary-foreground transition-all duration-300 group-hover:text-primary-foreground group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+                                <svg class="w-5 h-5 text-secondary-foreground transition-all duration-300 group-hover:text-primary-foreground group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
                             </div>
                         </div>
                     </div>
@@ -400,7 +441,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="text-right mt-4 flex justify-end items-center">
                         <span class="text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 mr-2">${t.details}</span>
                         <div class="w-9 h-9 rounded-full bg-secondary flex items-center justify-center transition-all duration-300 group-hover:bg-primary group-hover:scale-110 group-hover:shadow-lg">
-                            <svg class="w-5 h-5 text-secondary-foreground transition-all duration-300 group-hover:text-primary-foreground group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+                            <svg class="w-5 h-5 text-secondary-foreground transition-all duration-300 group-hover:text-primary-foreground group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
                         </div>
                     </div>
                 </div>
@@ -430,7 +471,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <h3 data-lang-key="${step.titleKey}" class="workflow-title">${title}</h3>
                         <p class="company" id="${step.aria}" data-lang-key="${step.descKey}">${desc}</p>
                         <div class="arrow-link" aria-hidden="true">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.4" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                         </div>
                     </div>`;
                 if (step.shell) {
@@ -502,7 +543,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let currentScale = 1, targetScale = 1;
             let animating = false;
             const MAX = 4; // derajat maksimum (subtle)
-            const SCALE_HOVER = 1.012;
+            const BASE_SCALE = 1.01; // slightly lower to reduce edge collisions
 
             function animate(){
                 if (!animating) return;
@@ -527,11 +568,40 @@ document.addEventListener('DOMContentLoaded', function() {
                 const py = y / rect.height;
                 const rx = (py - 0.5) * -2 * MAX; // invert Y for natural tilt
                 const ry = (px - 0.5) * 2 * MAX;
-                setTargets(rx, ry, SCALE_HOVER);
+                // Adaptive scale: reduce when near viewport edges or on small screens
+                const vw = window.innerWidth;
+                const edge = Math.min(24, Math.max(12, Math.floor(vw * 0.02))); // 12–24px edge threshold
+                const nearLeft = rect.left < edge;
+                const nearRight = (vw - rect.right) < edge;
+                const smallScreen = vw < 768;
+                let scale = BASE_SCALE;
+                if (smallScreen) scale = 1.006;
+                if (nearLeft || nearRight) scale = Math.min(scale, 1.006);
+                setTargets(rx, ry, scale);
             }, { passive: true });
-            container.addEventListener('mouseenter', () => setTargets(0,0,SCALE_HOVER));
+            container.addEventListener('mouseenter', () => {
+                const vw = window.innerWidth;
+                const rect = container.getBoundingClientRect();
+                const edge = Math.min(24, Math.max(12, Math.floor(vw * 0.02)));
+                const nearEdge = rect.left < edge || (vw - rect.right) < edge;
+                const smallScreen = vw < 768;
+                let scale = BASE_SCALE;
+                if (smallScreen) scale = 1.006;
+                if (nearEdge) scale = Math.min(scale, 1.006);
+                setTargets(0,0,scale);
+            });
             container.addEventListener('mouseleave', () => setTargets(0,0,1));
-            container.addEventListener('focus', () => setTargets(0,0,SCALE_HOVER));
+            container.addEventListener('focus', () => {
+                const vw = window.innerWidth;
+                const rect = container.getBoundingClientRect();
+                const edge = Math.min(24, Math.max(12, Math.floor(vw * 0.02)));
+                const nearEdge = rect.left < edge || (vw - rect.right) < edge;
+                const smallScreen = vw < 768;
+                let scale = BASE_SCALE;
+                if (smallScreen) scale = 1.006;
+                if (nearEdge) scale = Math.min(scale, 1.006);
+                setTargets(0,0,scale);
+            });
             container.addEventListener('blur', () => setTargets(0,0,1));
         });
     // Workflow cards now share the same subtle tilt via global handler above.
@@ -539,6 +609,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Logika untuk Language Switcher
     const langSwitchers = document.querySelectorAll('.lang-switcher');
+    // Guard to prevent overlapping language swaps
+    let isLangSwitching = false;
+    let langSwapTimer = null;
     
     function moveGlider(switcher) {
         const activeTab = switcher.querySelector('.active');
@@ -569,20 +642,119 @@ document.addEventListener('DOMContentLoaded', function() {
         glider.style.left = `${left}px`;
     }
 
+    // Orchestrator: animate language swap for a modern feel
+    function transitionLang(lang) {
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        // Prevent re-entrancy: if a swap is already in progress, ignore additional requests
+        if (isLangSwitching) return;
+        // If requested language is already active, no-op
+        if (document.documentElement.lang === lang) return;
+        isLangSwitching = true;
+        const main = document.querySelector('main');
+        const pulseGlider = () => {
+            langSwitchers.forEach(s => {
+                const gl = s.querySelector('.glider');
+                if (gl) {
+                    gl.classList.remove('lang-pulse');
+                    // Force restart
+                    void gl.offsetWidth;
+                    gl.classList.add('lang-pulse');
+                    setTimeout(()=> gl.classList.remove('lang-pulse'), 800);
+                }
+            });
+        };
+        const applyStagger = () => {
+            const candidates = document.querySelectorAll('#hero .metrics-scroll > div, #about .grid > *, #career #career-grid > *, #projects #projects-grid > *, #skills #skills-grid > *, #education #education-grid > *');
+            let i = 0;
+            candidates.forEach(el => {
+                el.classList.add('lang-fade-up');
+                // Stagger only first few in each section to avoid long tails
+                const delay = Math.min(i * 60, 360);
+                setTimeout(() => { el.classList.add('lang-in'); }, delay);
+                setTimeout(() => { el.classList.remove('lang-fade-up','lang-in'); }, delay + 800);
+                i++;
+            });
+        };
+        const doSwap = () => {
+            renderContent(lang);
+            // update switchers state & glider after DOM updates
+            langSwitchers.forEach(s => {
+                const prevActive = s.querySelector('.active');
+                if (prevActive) prevActive.classList.remove('active');
+                const btn = s.querySelector(`[data-lang="${lang}"]`);
+                if (btn) btn.classList.add('active');
+                s.querySelectorAll('button').forEach(btn=>btn.setAttribute('aria-pressed', btn.dataset.lang===lang? 'true':'false'));
+                moveGlider(s);
+            });
+            // AI suggestions reflect current language if modal open
+            if (!aiModalOverlay.classList.contains('pointer-events-none')) {
+                if (typeof renderSuggestions === 'function') renderSuggestions();
+            }
+            // Luxe extras
+            if (!reduce) {
+                pulseGlider();
+                // Apply a small stagger to fresh content
+                requestAnimationFrame(applyStagger);
+            }
+            // If we reached here via an animated flow, cleanup will be handled later in animationend
+            // For non-animated or fallback flows, clear switching flag now
+            if (!main || reduce) {
+                isLangSwitching = false;
+            }
+        };
+        if (!main || reduce) { doSwap(); return; }
+        // Phase 1: animate out
+        main.classList.remove('lang-animating-in');
+        main.classList.add('lang-animating-out');
+        // After out transition ends, swap and animate in
+        // Safety: if transitionend never fires (no CSS transition), fall back after timeout
+        const handleOutEnd = (ev) => {
+            if (ev.target !== main) return;
+            if (langSwapTimer) { clearTimeout(langSwapTimer); langSwapTimer = null; }
+            main.removeEventListener('transitionend', handleOutEnd);
+            doSwap();
+            // Force reflow to ensure the in animation runs
+            void main.offsetWidth;
+            main.classList.remove('lang-animating-out');
+            main.classList.add('lang-animating-in');
+            // Clean up after the in animation finishes
+            const cleanup = () => {
+                main.classList.remove('lang-animating-in');
+                main.removeEventListener('animationend', cleanup);
+                isLangSwitching = false;
+            };
+            main.addEventListener('animationend', cleanup, { once: true });
+        };
+        main.addEventListener('transitionend', handleOutEnd, { once: true });
+        // Fallback: ensure we don't wait forever for transitionend
+        langSwapTimer = setTimeout(() => {
+            try {
+                main.removeEventListener('transitionend', handleOutEnd);
+            } catch (e) { /* ignore */ }
+            // If still switching, perform swap immediately
+            if (isLangSwitching) {
+                doSwap();
+                // Force reflow & run the in animation cleanup path
+                void main.offsetWidth;
+                main.classList.remove('lang-animating-out');
+                main.classList.add('lang-animating-in');
+                const cleanup = () => {
+                    main.classList.remove('lang-animating-in');
+                    isLangSwitching = false;
+                };
+                main.addEventListener('animationend', cleanup, { once: true });
+                // If animationend doesn't run, ensure flag cleared shortly after
+                setTimeout(() => { isLangSwitching = false; }, 900);
+            }
+            langSwapTimer = null;
+        }, 700);
+    }
+
     langSwitchers.forEach(switcher => {
         switcher.addEventListener('click', (e) => {
             if(e.target.tagName === 'BUTTON') {
                 const lang = e.target.dataset.lang;
-                renderContent(lang);
-                if (!aiModalOverlay.classList.contains('pointer-events-none')) {
-                    if (typeof renderSuggestions === 'function') renderSuggestions();
-                }
-                langSwitchers.forEach(s => {
-                    s.querySelector('.active').classList.remove('active');
-                    s.querySelector(`[data-lang="${lang}"]`).classList.add('active');
-                    s.querySelectorAll('button').forEach(btn=>btn.setAttribute('aria-pressed', btn.dataset.lang===lang? 'true':'false'));
-                    moveGlider(s);
-                });
+                transitionLang(lang);
             }
         });
     });
@@ -619,6 +791,126 @@ document.addEventListener('DOMContentLoaded', function() {
     }, { threshold: 0.1 });
     faders.forEach(fader => observer.observe(fader));
     
+    // ===== Full-page Section Pager (snap + eased navigation) =====
+    const mainEl = document.querySelector('main');
+    const headerHeight = 64; // fixed header
+    let fullpageEnabled = true; // enable by default per request
+    let sectionList = [];
+    let isPaging = false;
+    let lastScrollTime = 0;
+    let touchStartY = 0;
+    let touchLastY = 0;
+    let userScrollTimer = null;
+    let allowPager = true;
+    function initFullpage(){
+        if (!mainEl) return;
+        fullpageEnabled = true;
+        mainEl.setAttribute('data-fullpage','y');
+        sectionList = Array.from(mainEl.querySelectorAll('section'));
+        sectionList.forEach(sec => sec.classList.add('fp-animate'));
+        // IntersectionObserver to toggle .is-visible
+        const io = new IntersectionObserver((entries)=>{
+            entries.forEach(en=>{
+                if (en.isIntersecting && en.intersectionRatio > 0.55) {
+                    en.target.classList.add('is-visible');
+                }
+            });
+        }, { root: null, threshold: [0.55] });
+        sectionList.forEach(sec=> io.observe(sec));
+    }
+    function currentSectionIndex(){
+        const y = window.scrollY + headerHeight + 10;
+        let idx = 0;
+        for (let i=0;i<sectionList.length;i++){
+            const r = sectionList[i].getBoundingClientRect();
+            const top = r.top + window.scrollY;
+            if (top <= y) idx = i; else break;
+        }
+        return idx;
+    }
+    function snapTo(index){
+        if (!fullpageEnabled || isPaging) return;
+        index = Math.max(0, Math.min(sectionList.length-1, index));
+        const target = sectionList[index];
+        if (!target) return;
+        isPaging = true;
+        const y = target.getBoundingClientRect().top + window.scrollY - 60; // a bit less than header for nicer feel
+        // Smooth manual scroll for consistent easing
+        const start = window.scrollY;
+        const dist = y - start;
+        const dur = Math.max(420, Math.min(820, Math.abs(dist)*0.45));
+        const t0 = performance.now();
+        const ease = (t) => t<.5 ? 2*t*t : 1 - Math.pow(-2*t+2,2)/2; // ease in-out quad
+        function step(now){
+            const k = Math.min(1, (now - t0) / dur);
+            const e = ease(k);
+            window.scrollTo(0, Math.round(start + dist * e));
+            if (k < 1) requestAnimationFrame(step); else { isPaging = false; }
+        }
+        requestAnimationFrame(step);
+    }
+    function shouldBlockNavigation(){
+        // Block if modal is open
+        const modalOpen = !document.getElementById('modal-overlay').classList.contains('pointer-events-none');
+        const aiOpen = !document.getElementById('ai-modal-overlay').classList.contains('pointer-events-none');
+        const maintenanceOpen = maintenanceOverlay && !maintenanceOverlay.classList.contains('hidden');
+        return modalOpen || aiOpen || maintenanceOpen;
+    }
+    // Wheel navigation
+    function hasScrollableAncestor(el){
+        let node = el;
+        while (node && node !== document.body){
+            const st = getComputedStyle(node);
+            const canScroll = /(auto|scroll)/.test(st.overflowY) && node.scrollHeight > node.clientHeight;
+            if (canScroll) return true;
+            node = node.parentElement;
+        }
+        return false;
+    }
+    window.addEventListener('wheel', (e)=>{
+        if (!fullpageEnabled) return;
+        if (shouldBlockNavigation()) return;
+        if (hasScrollableAncestor(e.target)) return; // don't hijack inner scroll areas
+        const now = performance.now();
+        if (isPaging || !allowPager || (now - lastScrollTime) < 180) return; // throttle
+        // Ignore tiny deltas (trackpads light moves)
+        if (Math.abs(e.deltaY) < 35) return;
+        e.preventDefault();
+        lastScrollTime = now;
+        const idx = currentSectionIndex();
+        if (e.deltaY > 0) snapTo(idx + 1); else snapTo(idx - 1);
+    }, { passive: false });
+    // Touch navigation
+    window.addEventListener('touchstart', (e)=>{
+        if (!fullpageEnabled) return; touchStartY = e.touches[0].clientY; touchLastY = touchStartY;
+    }, { passive: true });
+    window.addEventListener('touchmove', (e)=>{ touchLastY = e.touches[0].clientY; }, { passive: true });
+    window.addEventListener('touchend', (e)=>{
+        if (!fullpageEnabled) return; if (shouldBlockNavigation()) return;
+        const dy = touchStartY - touchLastY;
+        if (Math.abs(dy) < 60) return;
+        const idx = currentSectionIndex();
+        if (dy > 0) snapTo(idx + 1); else snapTo(idx - 1);
+    }, { passive: true });
+    // Keyboard navigation (PageDown/PageUp, ArrowDown/ArrowUp)
+    window.addEventListener('keydown', (e)=>{
+        if (!fullpageEnabled) return; if (shouldBlockNavigation()) return;
+        if (['PageDown','ArrowDown',' '].includes(e.key)) { e.preventDefault(); snapTo(currentSectionIndex()+1); }
+        else if (['PageUp','ArrowUp'].includes(e.key)) { e.preventDefault(); snapTo(currentSectionIndex()-1); }
+        else if (e.key === 'Home') { e.preventDefault(); snapTo(0); }
+        else if (e.key === 'End') { e.preventDefault(); snapTo(sectionList.length-1); }
+    });
+    // Temporarily pause pager when user actively scrolls (e.g., scrollbar drag)
+    window.addEventListener('scroll', ()=>{
+        allowPager = false;
+        clearTimeout(userScrollTimer);
+        userScrollTimer = setTimeout(()=>{ allowPager = true; }, 180);
+    }, { passive: true });
+    // Recompute section list on resize/orientation changes
+    window.addEventListener('resize', ()=>{ sectionList = Array.from(mainEl.querySelectorAll('section')); }, { passive: true });
+    window.addEventListener('orientationchange', ()=>{ sectionList = Array.from(mainEl.querySelectorAll('section')); }, { passive: true });
+    initFullpage();
+
     // Logika untuk menu mobile
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
@@ -1156,10 +1448,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const aiSuggestions = document.getElementById('ai-suggestions');
 
     function openAiModal() {
+        if (!aiModalOverlay || !aiModalContent) return;
         aiModalOverlay.classList.remove('opacity-0', 'pointer-events-none');
         aiModalOverlay.setAttribute('aria-hidden', 'false');
         aiModalContent.classList.remove('scale-95', 'opacity-0');
-    aiFabBtn.setAttribute('aria-expanded','true');
+        if (aiFabBtn) aiFabBtn.setAttribute('aria-expanded','true');
         if (aiChatBox.children.length === 0) {
             const lang = document.documentElement.lang || 'en';
             addMessageToChat(translations[lang].aiWelcome, 'ai');
@@ -1173,11 +1466,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function closeAiModal() {
+        if (!aiModalOverlay || !aiModalContent) return;
         aiModalOverlay.classList.add('opacity-0', 'pointer-events-none');
         aiModalOverlay.setAttribute('aria-hidden', 'true');
         aiModalContent.classList.add('scale-95', 'opacity-0');
-        aiFabBtn.setAttribute('aria-expanded','false');
-    aiFabBtn.focus();
+        if (aiFabBtn) {
+            aiFabBtn.setAttribute('aria-expanded','false');
+            aiFabBtn.focus();
+        }
     // Unlock background scroll
     document.documentElement.classList.remove('overflow-hidden');
         announce('AI assistant closed');
@@ -1494,19 +1790,40 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
+    // Debounced resize: re-render workflow only when crossing mobile/desktop breakpoint
+    let lastIsMobileWf = window.innerWidth <= 768;
+    let resizeTimer;
     window.addEventListener('resize', function(){
         resizeCanvas();
         init();
-    // Re-render workflow mobile/desktop variant after resize
-    const currentLang = document.documentElement.lang || 'en';
-    renderContent(currentLang);
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            const isMobileNow = window.innerWidth <= 768;
+            if (isMobileNow !== lastIsMobileWf) {
+                lastIsMobileWf = isMobileNow;
+                const currentLang = document.documentElement.lang || 'en';
+                renderContent(currentLang);
+            }
+        }, 150);
     });
 
     // Inisialisasi awal ringan (tanpa efek berat)
     const initialLang = localStorage.getItem('pref-lang') || 'en';
     renderContent(initialLang);
-    langSwitchers.forEach(s=> s.querySelectorAll('button').forEach(btn=>btn.setAttribute('aria-pressed', btn.dataset.lang===initialLang? 'true':'false')));
-    langSwitchers.forEach(moveGlider);
+    // Sync active class and aria-pressed with initial language
+    langSwitchers.forEach(s => {
+        const currentActive = s.querySelector('.active');
+        if (currentActive && currentActive.dataset.lang !== initialLang) {
+            currentActive.classList.remove('active');
+        }
+        const btn = s.querySelector(`[data-lang="${initialLang}"]`);
+        if (btn && !btn.classList.contains('active')) btn.classList.add('active');
+        s.querySelectorAll('button').forEach(btn=>btn.setAttribute('aria-pressed', btn.dataset.lang===initialLang? 'true':'false'));
+    });
+    // Schedule glider measurement after layout settles
+    requestAnimationFrame(() => langSwitchers.forEach(moveGlider));
+    // And as a safety, once the full page finishes loading
+    window.addEventListener('load', () => langSwitchers.forEach(moveGlider));
 
     // Tunda inisialisasi partikel & efek tilt sampai browser idle untuk prioritas konten
     const deferVisuals = () => {
@@ -1528,4 +1845,48 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
+
+    // ===== Maintenance Mode Bootstrapping =====
+    // Toggle by setting window.__MAINTENANCE__ = true in console or shipping with true.
+    // Bypass persists via localStorage key 'maintenance-bypass'.
+    const MAINTENANCE_DEFAULT = true; // set to true to enable by default during deploy
+    const MAINTENANCE_ALWAYS_SHOW = true; // force overlay to always show (ignores bypass/preview)
+    function isBypassed(){ return MAINTENANCE_ALWAYS_SHOW ? false : localStorage.getItem('maintenance-bypass') === '1'; }
+    function setBypass(v){ if (MAINTENANCE_ALWAYS_SHOW) return; if (v) localStorage.setItem('maintenance-bypass','1'); else localStorage.removeItem('maintenance-bypass'); }
+    function showMaintenance(){
+        if (!maintenanceOverlay) return;
+        maintenanceOverlay.classList.remove('hidden');
+        maintenanceOverlay.setAttribute('aria-hidden','false');
+        // Lock background scroll and hide background landmarks for a11y
+        document.documentElement.classList.add('overflow-hidden');
+        document.querySelectorAll('header, main, footer').forEach(el => el.setAttribute('aria-hidden','true'));
+        // Focus dialog
+        setTimeout(()=>{ if (maintenanceDialog) maintenanceDialog.focus?.(); }, 50);
+    }
+    function hideMaintenance(){
+        if (!maintenanceOverlay) return;
+        maintenanceOverlay.classList.add('hidden');
+        maintenanceOverlay.setAttribute('aria-hidden','true');
+        document.documentElement.classList.remove('overflow-hidden');
+        document.querySelectorAll('header, main, footer').forEach(el => el.removeAttribute('aria-hidden'));
+    }
+    // Initialize state
+    const maintenanceOn = MAINTENANCE_ALWAYS_SHOW || (typeof window.__MAINTENANCE__ === 'boolean' ? window.__MAINTENANCE__ : MAINTENANCE_DEFAULT);
+    if (maintenanceOn && !isBypassed()) {
+        showMaintenance();
+    }
+    // Hook preview button
+    if (maintenancePreviewBtn) {
+        if (MAINTENANCE_ALWAYS_SHOW) {
+            // Disable preview when always-show is enforced
+            maintenancePreviewBtn.setAttribute('disabled','true');
+            maintenancePreviewBtn.setAttribute('aria-disabled','true');
+            maintenancePreviewBtn.classList.add('opacity-60','cursor-not-allowed');
+        } else {
+            maintenancePreviewBtn.addEventListener('click', () => {
+                setBypass(true);
+                hideMaintenance();
+            });
+        }
+    }
 });

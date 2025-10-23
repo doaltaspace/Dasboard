@@ -78,13 +78,77 @@ main h3 { font-size: var(--fs-h3); line-height: var(--lh-snug); }
 /* Sub text muted unify */
 .company, .date, #projects .card-3d p.text-sm, #education .card-3d .text-xs { font-size: var(--fs-body-sm); line-height: 1.4; }
 #projects .card-3d p.text-sm { line-height: 1.45; }
-/* Ensure workflow subtitle smaller body scale already set */
-#workflow .workflow-subtitle { font-size: clamp(.92rem,1.05vw,1rem); }
+/* Ensure workflow subtitle smaller body scale already set (defined later in Workflow block) */
 /* Accessibility: preserve sufficient contrast & avoid scaling conflicts */
 @media (prefers-reduced-motion: reduce){ #hero h1.hero-title { letter-spacing: -0.75px; } }
 
 body, .bg-background, .bg-card, .text-foreground, .border-border, .text-primary, .bg-primary, #modal-content, header, #back-to-top-btn {
     transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out, opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* ===== Language change transition (lux variant) ===== */
+@media (prefers-reduced-motion: no-preference) {
+    main.lang-animating-out {
+        pointer-events: none;
+                opacity: 0.24;
+                transform: translateY(10px) scale(0.992);
+                filter: blur(8px) saturate(0.9);
+        transition:
+                        opacity .24s ease,
+                        transform .34s cubic-bezier(.2,.8,.2,1),
+                        filter .24s ease;
+        will-change: opacity, transform, filter;
+    }
+    main.lang-animating-in {
+        pointer-events: none;
+                animation: lang-in .56s cubic-bezier(.2,.8,.2,1);
+        will-change: opacity, transform, filter;
+    }
+    @keyframes lang-in {
+                0% { opacity: 0.24; transform: translateY(10px) scale(0.992); filter: blur(10px) saturate(0.9); }
+                60% { opacity: 1; filter: blur(0) saturate(1.03); }
+                100% { opacity: 1; transform: none; filter: none; }
+    }
+        /* Sweep reveal overlay for "lux" feel */
+        main.lang-animating-in::after {
+                content: "";
+                position: fixed;
+                inset: 0;
+                pointer-events: none;
+                background: linear-gradient(120deg,
+                        transparent 0%,
+                        hsla(var(--primary), 0.08) 20%,
+                        hsla(var(--primary), 0.14) 35%,
+                        hsla(var(--primary), 0.08) 55%,
+                        transparent 75%);
+                transform: translateX(-35%) skewX(-8deg);
+                filter: blur(10px) saturate(1.05);
+                animation: lang-sweep .65s cubic-bezier(.19,1,.22,1);
+                mix-blend-mode: soft-light;
+        }
+        @keyframes lang-sweep { to { transform: translateX(110%) skewX(-8deg); opacity: 0; } }
+}
+
+/* Glider pulse/glow when switching language */
+@media (prefers-reduced-motion: no-preference) {
+    .lang-switcher .glider.lang-pulse {
+        box-shadow: 0 0 0 0 hsla(var(--primary), 0.35), 0 6px 16px hsla(var(--foreground), 0.12);
+        animation: glider-pulse .7s ease-out;
+    }
+    @keyframes glider-pulse {
+        0% { box-shadow: 0 0 0 0 hsla(var(--primary), 0.45), 0 6px 16px hsla(var(--foreground), 0.16); }
+        70% { box-shadow: 0 0 0 12px hsla(var(--primary), 0); }
+        100% { box-shadow: 0 0 0 0 hsla(var(--primary), 0), 0 2px 8px hsla(var(--foreground), 0.1); }
+    }
+}
+
+/* Reusable stagger for content after language swap */
+@media (prefers-reduced-motion: no-preference) {
+    .lang-fade-up { opacity: 0; transform: translateY(8px); }
+    .lang-fade-up.lang-in {
+        opacity: 1; transform: none;
+        transition: opacity .5s ease, transform .6s cubic-bezier(.2,.8,.2,1);
+    }
 }
 
 /* Screen reader only utility */
@@ -104,6 +168,46 @@ body {
     padding-top: 64px;
 }
 
+/* ===== Full-page scroll (section-as-page) ===== */
+/* Activated when main[data-fullpage="y"] is set by JS */
+main[data-fullpage="y"] {
+    scroll-snap-type: y mandatory;
+    scroll-padding-top: 64px; /* fixed header */
+}
+main[data-fullpage="y"] > section {
+    min-height: calc(100svh - 64px);
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+}
+
+/* Grand entrance/exit feel per section */
+.fp-animate {
+    opacity: 0;
+    transform: translateY(40px) scale(0.985);
+    transition:
+        opacity .85s cubic-bezier(.22,1,.36,1),
+        transform .95s cubic-bezier(.22,1,.36,1);
+    will-change: opacity, transform;
+}
+.fp-animate.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+/* Slight parallax for section headings on enter */
+.fp-animate h2, .fp-animate .workflow-heading {
+    transform: translateY(14px);
+    opacity: 0.001;
+    transition: opacity .8s ease-out .05s, transform .9s cubic-bezier(.22,1,.36,1) .05s;
+}
+.fp-animate.is-visible h2, .fp-animate.is-visible .workflow-heading {
+    transform: none;
+    opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+    main[data-fullpage="y"] { scroll-snap-type: none; }
+    .fp-animate, .fp-animate h2, .fp-animate .workflow-heading { transition: none; transform: none; opacity: 1; }
+}
+
 /* === Consistent Section Spacing Audit === */
 main > section { position: relative; }
 /* Ensure top/bottom padding uniform; already py-24 (6rem). We create internal heading rhythm */
@@ -111,13 +215,13 @@ main > section > h2, #workflow .workflow-heading { margin-top: 0; }
 /* Standard heading -> content gap */
 main > section > h2 + *:not(script) { margin-top: 2.75rem; }
 /* Fine tune specific sections already having internal wrappers */
-#hero { padding-bottom: 3rem; }
+#hero { padding-bottom: 2.5rem; }
 #about .grid { margin-top: 2.5rem; }
 #career #career-grid { margin-top: 3rem !important; }
 #projects #projects-grid { margin-top: 3rem !important; }
 #skills #skills-grid { margin-top: 3rem !important; }
 #education #education-grid { margin-top: 3rem !important; }
-#workflow .workflow-subtitle { margin-top: 1rem; }
+/* Workflow subtitle spacing defined in dedicated Workflow block below */
 #workflow .frame { margin-top: -2rem !important; }
 @media (max-width: 768px){
     main > section > h2 + *:not(script) { margin-top: 2.25rem; }
@@ -129,6 +233,22 @@ main > section > h2 + *:not(script) { margin-top: 2.75rem; }
 @media (max-width:768px){
     #career #career-grid[class*="mt-"], #projects #projects-grid[class*="mt-"], #skills #skills-grid[class*="mt-"], #education #education-grid[class*="mt-"] { margin-top: 2.5rem !important; }
 }
+
+/* Provide extra lateral space on main container to avoid 3D tilt clipping at edges */
+main.container.mx-auto {
+    padding-left: clamp(1.5rem, 3.8vw, 3.5rem);
+    padding-right: clamp(1.5rem, 3.8vw, 3.5rem);
+}
+@media (min-width: 1280px) {
+    main.container.mx-auto { padding-left: clamp(2rem, 4.5vw, 4rem); padding-right: clamp(2rem, 4.5vw, 4rem); }
+}
+@media (max-width: 640px) {
+    /* Keep mobile compact to avoid horizontal squeeze */
+    main.container.mx-auto { padding-left: 1.25rem; padding-right: 1.25rem; }
+}
+
+/* Ensure education cards are not clipped by any ancestor */
+#education .card-3d-container { overflow: visible; }
 
 #interactive-bg {
     position: fixed;
@@ -194,10 +314,11 @@ body:hover #cursor-spotlight {
     transform-style: preserve-3d;
     transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
     position: relative;
-    overflow: hidden;
+    overflow: hidden; /* keep internal media clipping */
 }
+.card-3d-container { overflow: visible; }
 .group:hover .card-3d {
-    transform: translateY(-5px) scale(1.02);
+    transform: translateY(-5px) scale(1.015);
     box-shadow: 0 20px 40px hsla(var(--foreground), 0.1);
 }
 .card-3d::before {
@@ -529,6 +650,131 @@ section[id] {
 .hero-title { color: hsl(240 5% 30%); }
 .dark .hero-title { color: hsl(var(--foreground)); }
 
+/* === Hero (Left-aligned + Golden Ratio Scale) === */
+:root {
+    /* Base body assumed ~16px; define phi steps (approx) via clamp for fluidity */
+    --phi: 1.618;
+    /* Golden ratio ladder for hero */
+    --hero-hello: clamp(1.05rem, 1.6vw, 1.25rem);       /* ~16→20px */
+    --hero-title: clamp(2.6rem, 5.2vw, 3.6rem);         /* ~42→58px */
+    --hero-sub: clamp(1rem, 1.6vw, 1.125rem);           /* ~16→18px */
+    --hero-tight: 1.12;                                  /* tight for display */
+    --hero-body: 1.55;                                   /* comfortable reading */
+}
+
+#hero .hero-left { text-align: left; }
+#hero .hero-hello {
+    font-size: var(--hero-hello);
+    line-height: 1.35;
+    letter-spacing: 0.2px;
+    color: hsl(var(--primary));
+    font-weight: 700;
+}
+#hero .hero-title {
+    font-size: var(--hero-title);
+    line-height: var(--hero-tight);
+    letter-spacing: -0.8px;
+    margin-top: 0.2rem;
+}
+#hero .hero-sub {
+    font-size: var(--hero-sub);
+    line-height: var(--hero-body);
+    color: hsl(var(--text-muted));
+    margin-top: clamp(0.75rem, 1.4vw, 1rem);
+    max-width: 60ch;
+}
+@media (max-width: 640px) {
+    #hero .hero-title { letter-spacing: -0.5px; }
+    #hero .hero-sub { max-width: 50ch; }
+}
+
+/* Icon buttons row in hero */
+#hero .icon-row .icon-btn {
+    box-shadow: 0 8px 18px hsla(var(--foreground), 0.06);
+    transition: transform .25s ease, box-shadow .25s ease, background-color .25s ease, color .25s ease;
+    color: hsl(var(--primary)); /* terracotta icons by default */
+}
+#hero .icon-row .icon-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px hsla(var(--foreground), 0.1);
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground)); /* invert for contrast */
+}
+/* Brand hover colors (override terracotta on hover for specific icons) */
+#hero .icon-row .icon-btn[data-icon="whatsapp"]:hover {
+    background-color: #25D366; /* WhatsApp green */
+    color: #ffffff;
+}
+#hero .icon-row .icon-btn[data-icon="linkedin"]:hover {
+    background-color: #0A66C2; /* LinkedIn blue */
+    color: #ffffff;
+}
+
+/* Stronger focus outline for accessibility */
+#hero .icon-row .icon-btn:focus-visible {
+    outline: 3px solid hsl(var(--primary));
+    outline-offset: 3px;
+    box-shadow: 0 0 0 4px hsla(var(--primary), 0.25);
+}
+/* Micro interaction: slight scale on hover/focus */
+#hero .icon-row .icon-btn:hover svg,
+#hero .icon-row .icon-btn:focus-visible svg {
+    transform: scale(1.08);
+    transition: transform .2s ease;
+}
+/* Simple tooltip */
+#hero .icon-row .icon-btn[data-tooltip] {
+    position: relative;
+}
+#hero .icon-row .icon-btn[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: hsl(var(--foreground));
+    color: hsl(var(--background));
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease, transform .2s ease;
+    transform-origin: bottom center;
+}
+#hero .icon-row .icon-btn[data-tooltip]:hover::after,
+#hero .icon-row .icon-btn[data-tooltip]:focus-visible::after {
+    opacity: 0.95;
+    transform: translate(-50%, -2px);
+}
+
+/* Hero right photo styling */
+#hero .hero-photo {
+    box-shadow: 0 24px 60px -20px hsla(var(--foreground), 0.18), 0 10px 28px -12px hsla(var(--foreground), 0.12);
+    transition: transform .45s cubic-bezier(.22,1,.36,1), box-shadow .45s ease;
+}
+#hero .hero-right:hover .hero-photo { 
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 30px 72px -24px hsla(var(--foreground), 0.24), 0 14px 32px -14px hsla(var(--foreground), 0.16);
+}
+/* Transparent-background portrait variant */
+#hero .hero-photo.transparent {
+    border-radius: 0 !important;         /* let alpha edges stay natural */
+    background: transparent !important;
+    box-shadow: none !important;         /* neutralize Tailwind ring shadow */
+    filter: drop-shadow(0 12px 28px hsla(var(--foreground), 0.22))
+                    drop-shadow(0 2px 12px hsla(var(--foreground), 0.12));
+}
+#hero .hero-right:hover .hero-photo.transparent {
+    transform: translateY(-4px) scale(1.005);
+    filter: drop-shadow(0 18px 40px hsla(var(--foreground), 0.26))
+                    drop-shadow(0 4px 16px hsla(var(--foreground), 0.14));
+}
+@media (max-width: 1024px){
+    #hero .hero-photo { max-height: 56vh; }
+}
+
 /* Card click affordance */
 .card-3d-container[role="button"] .card-3d::after {
     content: "";
@@ -568,7 +814,10 @@ section[id] {
 /* ==== Workflow Layout Styles (restored absolute positioning) ==== */
 #workflow .workflow-header { max-width: 860px; margin: 0 auto 1.25rem; text-align: center; padding: 0 1rem; }
 #workflow .workflow-heading { font-size: clamp(1.9rem,3.4vw,2.4rem); font-weight:700; letter-spacing:-0.5px; line-height:1.15; margin:0; font-family: var(--font-heading,'Lato','Inter',sans-serif); }
+#workflow .workflow-heading .wf-headline { display:block; }
+#workflow .workflow-heading .wf-subheadline { display:block; font-weight:600; letter-spacing:-0.2px; margin-top: .2rem; font-size: clamp(1.05rem,1.4vw,1.15rem); }
 #workflow .workflow-subtitle { margin: 0.85rem auto 0; max-width: 780px; font-size: clamp(.9rem,1.15vw,1rem); line-height:1.55; color: hsl(var(--text-muted)); }
+#workflow .workflow-subtitle p + p { margin-top: .85rem; }
 #workflow .workflow-subtitle br { display:none; }
 @media (max-width:640px){
     #workflow .workflow-header { margin-bottom: .75rem; }
@@ -956,9 +1205,10 @@ html[lang="id"] #workflow .frame { margin-top: 0.75rem; }
 
 /* Performance: defer rendering below-the-fold sections using content-visibility (progressive enhancement) */
 #about, #career, #projects, #workflow, #skills, #education {
-    content-visibility: auto;
-    contain-intrinsic-size: 900px; /* rough placeholder to prevent large layout shift */
+    /* Disable paint containment so 3D tilt can render beyond section bounds */
+    content-visibility: visible;
 }
 @media (max-width: 640px){
-    #about, #career, #projects, #workflow, #skills, #education { contain-intrinsic-size: 1100px; }
+    /* contain-intrinsic-size only applies when content-visibility: auto; kept commented for reference */
+    /* #about, #career, #projects, #workflow, #skills, #education { contain-intrinsic-size: 1100px; } */
 }
