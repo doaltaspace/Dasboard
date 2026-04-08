@@ -1849,8 +1849,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // ===== Maintenance Mode Bootstrapping =====
     // Toggle by setting window.__MAINTENANCE__ = true in console or shipping with true.
     // Bypass persists via localStorage key 'maintenance-bypass'.
-    const MAINTENANCE_DEFAULT = true; // set to true to enable by default during deploy
-    const MAINTENANCE_ALWAYS_SHOW = true; // force overlay to always show (ignores bypass/preview)
+    const MAINTENANCE_DEFAULT = false; // set to true to enable by default during deploy
+    const MAINTENANCE_ALWAYS_SHOW = false; // force overlay to always show (ignores bypass/preview)
     function isBypassed(){ return MAINTENANCE_ALWAYS_SHOW ? false : localStorage.getItem('maintenance-bypass') === '1'; }
     function setBypass(v){ if (MAINTENANCE_ALWAYS_SHOW) return; if (v) localStorage.setItem('maintenance-bypass','1'); else localStorage.removeItem('maintenance-bypass'); }
     function showMaintenance(){
